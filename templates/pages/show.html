@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body,
+      html {
+        height: 100%;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      .bg-text {
+        background-color: rgba(0, 0, 0, 0.4); /* Black w/opacity/see-through */
+        color: white;
+        font-weight: bold;
+        border: 3px solid #f1f1f1;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        width: 60%;
+        padding: 20px;
+        text-align: left;
+      }
+      .bg-image {
+        /* The image used */
+        background-image: url("https://miro.medium.com/max/2800/1*rekFHWdIPIlhzB3UlHr8dQ.jpeg");
+
+        /* Add the blur effect */
+        filter: blur(8px);
+        -webkit-filter: blur(8px);
+
+        /* Full height */
+        height: 100%;
+
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+      }
+
+      nav li {
+        float: left;
+      }
+
+      .logout {
+        float: right;
+      }
+
+      nav li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+
+      /* Change the link color to #111 (black) on hover */
+      nav li a:hover {
+        background-color: #111;
+      }
+      table,
+      th,
+      td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        padding: 15px;
+      }
+      table {
+        border-spacing: 5px;
+      }
+    </style>
+    <title>Shows</title>
+  </head>
+  <body
+    style="
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    "
+  >
+    <nav>
+      <ul>
+        <li><a href="/home">Home</a></li>
+        <li><a href="/create">Create</a></li>
+        <li><a href="/show">Show</a></li>
+        <li><a href="/add">Add</a></li>
+        <li><a href="/payroll">Payroll</a></li>
+        <li class="logout"><a href="/logout">Logout</a></li>
+      </ul>
+    </nav>
+
+    <div class="bg-image"></div>
+    <div class="bg-text">
+      <table style="width: 100%;">
+        <tr>
+          <th>Employee Id</th>
+          <th>Name</th>
+          <th>Hourly Rate</th>
+          <th>Total Hours Worked</th>
+          <th>Pending Money</th>
+        </tr>
+
+        {% block content %} {% for employee in employees %}
+        <tr>
+          <td>{{ employee['e_id'] }}</td>
+          <td>{{ employee['name'] }}</td>
+          <td>{{ employee['h_r'] }}</td>
+          <td>{{ employee['total'] }}</td>
+          <td>{{ employee['balance'] }}</td>
+        </tr>
+        {% endfor %} {% endblock %}
+      </table>
+      <h3>
+        * If Pending Money is positive then Employee get that money, otherwise
+        Employee has to pay it.
+      </h3>
+    </div>
+  </body>
+</html>

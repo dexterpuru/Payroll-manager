@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body,
+      html {
+        height: 100%;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      .bg-text {
+        background-color: rgba(0, 0, 0, 0.4); /* Black w/opacity/see-through */
+        color: white;
+        font-weight: bold;
+        border: 3px solid #f1f1f1;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        width: 60%;
+        padding: 20px;
+        text-align: left;
+      }
+      .bg-image {
+        /* The image used */
+        background-image: url("https://miro.medium.com/max/2800/1*rekFHWdIPIlhzB3UlHr8dQ.jpeg");
+
+        /* Add the blur effect */
+        filter: blur(8px);
+        -webkit-filter: blur(8px);
+
+        /* Full height */
+        height: 100%;
+
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+    </style>
+    <title>Login</title>
+  </head>
+  <body
+    style="
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    "
+  >
+    <div class="bg-image"></div>
+    <div class="bg-text">
+      <span class="save-message">
+        {% with messages = get_flashed_messages() %} {% if messages %}
+        <p>{{ messages[0] }}</p>
+        {% endif %} {% endwith %}
+      </span>
+      <div class="form-wrapper">
+        <form method="POST" class="form">
+          <table>
+            <tr>
+              <td>
+                <label for="username">Username</label>
+              </td>
+              <td>
+                {{ form.username(class_ = 'form-control', autofocus=true) }}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label for="password">Password</label>
+              </td>
+              <td>
+                {{ form.password(class_ = 'form-control', autofocus=true) }}
+              </td>
+            </tr>
+          </table>
+          <input type="submit" value="Login" />
+          {{ form.csrf_token() }}
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body,
+      html {
+        height: 100%;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      .bg-text {
+        background-color: rgba(0, 0, 0, 0.4); /* Black w/opacity/see-through */
+        color: white;
+        font-weight: bold;
+        border: 3px solid #f1f1f1;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        width: 60%;
+        padding: 20px;
+        text-align: left;
+      }
+      .bg-image {
+        /* The image used */
+        background-image: url("https://miro.medium.com/max/2800/1*rekFHWdIPIlhzB3UlHr8dQ.jpeg");
+
+        /* Add the blur effect */
+        filter: blur(8px);
+        -webkit-filter: blur(8px);
+
+        /* Full height */
+        height: 100%;
+
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+      }
+
+      nav li {
+        float: left;
+      }
+
+      .logout {
+        float: right;
+      }
+
+      nav li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+
+      /* Change the link color to #111 (black) on hover */
+      nav li a:hover {
+        background-color: #111;
+      }
+
+      th,
+      td {
+        padding: 15px;
+      }
+      table {
+        width: 100%;
+        border-spacing: 5px;
+      }
+      .save-message {
+        text-align: center;
+      }
+    </style>
+    <title>Shows</title>
+  </head>
+  <body
+    style="
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    "
+  >
+    <nav>
+      <ul>
+        <li><a href="/home">Home</a></li>
+        <li><a href="/create">Create</a></li>
+        <li><a href="/show">Show</a></li>
+        <li><a href="/add">Add</a></li>
+        <li><a href="/payroll">Payroll</a></li>
+        <li class="logout"><a href="/logout">Logout</a></li>
+      </ul>
+    </nav>
+
+    <div class="bg-image"></div>
+    <div class="bg-text">
+      <span class="save-message">
+        {% with messages = get_flashed_messages() %} {% if messages %}
+        <p>{{ messages[0] }}</p>
+        {% endif %} {% endwith %}
+      </span>
+      <div class="form-wrapper">
+        <form method="POST" class="form">
+          <table>
+            <tr>
+              <td>
+                <label for="e_id">Employee Id</label>
+              </td>
+              <td>
+                {{ form.e_id(class_ = 'form-control', autofocus=true) }}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label for="name">Name</label>
+              </td>
+              <td>
+                {{ form.name(class_ = 'form-control', autofocus=true) }}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label for="hourly_rate">Hourly Rate</label>
+              </td>
+              <td>
+                {{ form.hourly_rate(class_ = 'form-control', autofocus=true,
+                placeholder='Can\'t be less than 0') }}
+              </td>
+            </tr>
+          </table>
+          <input type="submit" value="Create Employee" />
+          {{ form.csrf_token() }}
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
